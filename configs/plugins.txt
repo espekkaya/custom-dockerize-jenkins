@@ -1,0 +1,10 @@
+git:3.10.0
+matrix-auth:2.4.2
+workflow-aggregator:2.6
+docker-workflow:1.18
+blueocean:1.16.0
+credentials-binding:1.18
+email-ext:2.66
+build-blocker-plugin:1.7.3
+build-timeout:1.19
+simple-theme-plugin:0.5.1
