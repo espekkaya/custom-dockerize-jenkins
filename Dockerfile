@@ -1,5 +1,6 @@
-FROM jenkins/jenkins:2.164.2
-LABEL authors="espekkaya@gmail.com"
+ARG JENKINS_VERSION=2.280
+FROM jenkins/jenkins:$JENKINS_VERSION
+LABEL maintainer="S. Enes PEKKAYA <espekkaya@gmail.com>"
 
 USER root
 
@@ -31,11 +32,16 @@ RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 # Copy files needed in the container
 COPY configs/init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
 
+# Directory for Pipeline Library
+ARG LOCAL_PIPELINE_LIBRARY_PATH=/var/jenkins_home/pipeline-library
+ENV LOCAL_PIPELINE_LIBRARY_PATH=${LOCAL_PIPELINE_LIBRARY_PATH}
+
+VOLUME /var/jenkins_home/pipeline-library
+
+COPY pipelines /var/jenkins_home/pipelines
 
 # Change Jenkins Styles
 COPY style/jenkins-material-theme.css /usr/share/jenkins/ref/userContent/style/jenkins-material-theme.css
-# RUN mkdir -p /jenkins-styles
-# COPY style/jenkins-material-theme.css /jenkins-styles
 
 # Clean up
 RUN apt-get autoremove -y \

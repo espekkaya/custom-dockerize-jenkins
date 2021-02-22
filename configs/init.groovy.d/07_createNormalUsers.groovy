@@ -25,7 +25,7 @@ def users = [
   // Anonymous users can take all relevant actions (like stopping/restarting jobs) and since they cannot take any
   // destructive action, this is usually fine.
   //
-  new UserDefinition('normauser', '1234', 'normaluser@example.com'),
+  new UserDefinition('user', '1234', 'user@example.com'),
 ]
 def permissions = [
   Permission.fromId("hudson.model.Hudson.Read"),

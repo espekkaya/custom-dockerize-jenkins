@@ -8,8 +8,10 @@ def logger = Logger.getLogger("")
 def env = System.getenv()
 
 def baseUrl = env.JENKINS_BASE_URL
+
 if (baseUrl) {
   def instance = Jenkins.getInstance()
+  
   jenkinsLocationConfiguration = JenkinsLocationConfiguration.get()
   jenkinsLocationConfiguration.setUrl(baseUrl)
   instance.save()
