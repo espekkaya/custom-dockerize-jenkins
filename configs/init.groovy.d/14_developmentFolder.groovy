@@ -13,18 +13,18 @@ if (Jenkins.instance.getItem(folderName) != null) {
     return
 }
 
-// Admin owns the root Development folder
+// Development folder
 def folder = Jenkins.instance.createProject(Folder.class, folderName.toUpperCase())
-folder.description = "${folderName} Pipeline jobs"
+folder.description = "${folderName.toUpperCase()} Jobs"
 folder.save()
 
 // Loads development from sources
-def sourceDir = new File(Jenkins.instance.rootDir, "pipelines/${folderName}/")
+def sourceDir = new File(Jenkins.instance.rootDir, "jobs-library/${folderName}/")
 
 if (sourceDir.exists()) {
     println("===== Loading ${folderName}")
     sourceDir.eachFile(FileType.FILES) { file ->
-        if (file.name.endsWith('.groovy')) {
+        if (file.name.endsWith('.pipeline.groovy')) {
                 // def bindings = new Binding()
                 // bindings.setVariable("folder", folder)
                 // def shell = new GroovyShell(bindings)
@@ -35,7 +35,7 @@ if (sourceDir.exists()) {
     }
 
     // Also load project from the Pipeline library
-    File pipelineLibSource = new File(Jenkins.instance.rootDir, "pipeline-library/${folderName}/")
+    File pipelineLibSource = new File(Jenkins.instance.rootDir, "jobs_external/${folderName}/")
     def libs = new File(pipelineLibSource, folderName)
     if (libs.exists()) {
         libs.eachFile(FileType.FILES) { file ->

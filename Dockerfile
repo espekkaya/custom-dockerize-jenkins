@@ -33,12 +33,12 @@ RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 COPY configs/init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
 
 # Directory for Pipeline Library
-ARG LOCAL_PIPELINE_LIBRARY_PATH=/var/jenkins_home/pipeline-library
+ARG LOCAL_PIPELINE_LIBRARY_PATH=/var/jenkins_home/jobs-external
 ENV LOCAL_PIPELINE_LIBRARY_PATH=${LOCAL_PIPELINE_LIBRARY_PATH}
 
-VOLUME /var/jenkins_home/pipeline-library
+VOLUME /var/jenkins_home/jobs-external
 
-COPY pipelines /var/jenkins_home/pipelines
+COPY jobs /var/jenkins_home/jobs-library
 
 # Change Jenkins Styles
 COPY style/jenkins-material-theme.css /usr/share/jenkins/ref/userContent/style/jenkins-material-theme.css
